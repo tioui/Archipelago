@@ -128,6 +128,8 @@ class AquariaWorld(World):
             classification = ItemClassification.filler
         elif data.type == ItemType.PROGRESSION:
             classification = ItemClassification.progression
+        elif data.type == ItemType.TRAP:
+            classification = ItemClassification.trap
         result = AquariaItem(name, classification, data.id, self.player)
 
         return result
@@ -150,6 +152,7 @@ class AquariaWorld(World):
         return filler_item_name
 
     def __place_transturtle(self):
+        """Pre-fill the transturtle location with the transport items (if needed by options) """
         if (self.options.objective.value == Objective.option_killing_the_four_gods or
                 self.options.objective.value == Objective.option_gods_and_creator):
             self.__pre_fill_item(ItemNames.TRANSTURTLE_ABYSS, AquariaLocationNames.ABYSS_RIGHT_AREA_TRANSTURTLE)
@@ -181,8 +184,8 @@ class AquariaWorld(World):
             self.__pre_fill_item(ItemNames.DOOR_TO_CATHEDRAL, AquariaLocationNames.SITTING_ON_THRONE,
                                  ItemClassification.progression)
 
-
     def __add_item_to_pool(self, item: Item):
+        """Add `item` to the multiworld pool"""
         pool_item = item
         if self.options.progressive_recipes:
             if item_table[item.name].group == ItemGroup.RECIPE_LOAF:
@@ -200,6 +203,7 @@ class AquariaWorld(World):
             elif item_table[item.name].group == ItemGroup.RECIPE_ICE_CREAM:
                 pool_item = self.create_item(ItemNames.PROGRESSIVE_ICE_CREAM)
         self.multiworld.itempool.append(pool_item)
+
     def create_items(self) -> None:
         """Create every item in the world"""
         self.__place_transturtle()
@@ -208,7 +212,6 @@ class AquariaWorld(World):
             list_items = four_gods_items
         else:
             list_items = normal_items
-
         item_count = 0
         for name in list_items:
             item_count = item_count + 1
