@@ -228,6 +228,21 @@ class ThroneAsLocation(Toggle):
     display_name = "Throne as a location"
 
 
+class TrapsEnabled(Toggle):
+    """
+    If enabled, trap may be added in the item pool.
+    """
+    display_name = "Enable traps"
+
+
+class ProgressiveRecipes(Toggle):
+    """
+    If enabled, the recipe will be learned progressively.
+    For example, hen you learn a soup, you will always learn the hot soup first, then the hearty soup, etc.
+    """
+    display_name = "Progressive Recipes"
+
+
 class NoProgressionHardOrHiddenLocation(Toggle):
     """
     Make sure that there are no progression items at hard-to-reach or hard-to-find locations.
@@ -317,6 +332,7 @@ class NoProgressionBody(Toggle):
     """
     display_name = "No progression in the Body"
 
+
 @dataclass
 class AquariaOptions(PerGameCommonOptions):
     """
@@ -343,6 +359,8 @@ class AquariaOptions(PerGameCommonOptions):
     skip_final_boss_3rd_form: SkipFinalBoss3rdForm
     save_healing: SaveHealing
     throne_as_location: ThroneAsLocation
+    traps_enabled: TrapsEnabled
+    progressive_recipes: ProgressiveRecipes
     no_progression_hard_or_hidden_locations: NoProgressionHardOrHiddenLocation
     no_progression_simon_says: NoProgressionSimonSays
     no_progression_kelp_forest: NoProgressionKelpForest

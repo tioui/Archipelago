@@ -6,8 +6,8 @@ Description: Main module for Aquaria game multiworld randomizer
 
 from typing import List, Dict, ClassVar, Any
 from worlds.AutoWorld import World, WebWorld
-from BaseClasses import Tutorial, MultiWorld, ItemClassification
-from .Items import item_table, AquariaItem, ItemType, ItemGroup, ItemNames, four_gods_excludes
+from BaseClasses import Item, Tutorial, MultiWorld, ItemClassification
+from .Items import item_table, AquariaItem, ItemType, ItemGroup, ItemNames, normal_items, four_gods_items
 from .Locations import location_table, AquariaLocationNames
 from .Options import (AquariaOptions, IngredientRandomizer, TurtleRandomizer, EarlyBindSong, EarlyEnergyForm,
                       UnconfineHomeWater, Objective)
@@ -132,71 +132,95 @@ class AquariaWorld(World):
 
         return result
 
-    def __pre_fill_item(self, item_name: str, location_name: str, precollected,
-                        itemClassification: ItemClassification = ItemClassification.useful) -> None:
+    def __pre_fill_item(self, item_name: str, location_name: str,
+                        item_classification: ItemClassification = ItemClassification.useful) -> None:
         """Pre-assign an item to a location"""
-        if item_name not in precollected:
-            self.exclude.append(item_name)
-            data = item_table[item_name]
-            item = AquariaItem(item_name, itemClassification, data.id, self.player)
-            self.multiworld.get_location(location_name, self.player).place_locked_item(item)
+        self.exclude.append(item_name)
+        data = item_table[item_name]
+        item = AquariaItem(item_name, item_classification, data.id, self.player)
+        self.multiworld.get_location(location_name, self.player).place_locked_item(item)
 
     def get_filler_item_name(self):
         """Getting a random ingredient item as filler"""
         ingredients = []
         for name, data in item_table.items():
-            if data.group == ItemGroup.INGREDIENT:
+            if data.group == ItemGroup.INGREDIENT or (self.options.traps_enabled and data.group == ItemGroup.TRAP):
                 ingredients.append(name)
         filler_item_name = self.random.choice(ingredients)
         return filler_item_name
 
-    def create_items(self) -> None:
-        """Create every item in the world"""
-        precollected = [item.name for item in self.multiworld.precollected_items[self.player]]
+    def __place_transturtle(self):
         if (self.options.objective.value == Objective.option_killing_the_four_gods or
                 self.options.objective.value == Objective.option_gods_and_creator):
-            self.exclude.extend(four_gods_excludes)
-            self.__pre_fill_item(ItemNames.TRANSTURTLE_ABYSS, AquariaLocationNames.ABYSS_RIGHT_AREA_TRANSTURTLE,
-                                 precollected)
-            self.__pre_fill_item(ItemNames.TRANSTURTLE_BODY, AquariaLocationNames.FINAL_BOSS_AREA_TRANSTURTLE,
-                                 precollected)
+            self.__pre_fill_item(ItemNames.TRANSTURTLE_ABYSS, AquariaLocationNames.ABYSS_RIGHT_AREA_TRANSTURTLE)
+            self.__pre_fill_item(ItemNames.TRANSTURTLE_BODY, AquariaLocationNames.FINAL_BOSS_AREA_TRANSTURTLE)
         if self.options.turtle_randomizer.value != TurtleRandomizer.option_none:
             if (self.options.turtle_randomizer.value == TurtleRandomizer.option_all_except_final and
                     self.options.objective.value != Objective.option_killing_the_four_gods and
                     self.options.objective.value != Objective.option_gods_and_creator):
-                self.__pre_fill_item(ItemNames.TRANSTURTLE_BODY, AquariaLocationNames.FINAL_BOSS_AREA_TRANSTURTLE,
-                                     precollected)
+                self.__pre_fill_item(ItemNames.TRANSTURTLE_BODY, AquariaLocationNames.FINAL_BOSS_AREA_TRANSTURTLE)
         else:
             self.__pre_fill_item(ItemNames.TRANSTURTLE_VEIL_TOP_LEFT,
-                                 AquariaLocationNames.THE_VEIL_TOP_LEFT_AREA_TRANSTURTLE, precollected)
+                                 AquariaLocationNames.THE_VEIL_TOP_LEFT_AREA_TRANSTURTLE)
             self.__pre_fill_item(ItemNames.TRANSTURTLE_VEIL_TOP_RIGHT,
-                                 AquariaLocationNames.THE_VEIL_TOP_RIGHT_AREA_TRANSTURTLE, precollected)
+                                 AquariaLocationNames.THE_VEIL_TOP_RIGHT_AREA_TRANSTURTLE)
             self.__pre_fill_item(ItemNames.TRANSTURTLE_OPEN_WATERS,
-                                 AquariaLocationNames.OPEN_WATERS_TOP_RIGHT_AREA_TRANSTURTLE, precollected)
+                                 AquariaLocationNames.OPEN_WATERS_TOP_RIGHT_AREA_TRANSTURTLE)
             self.__pre_fill_item(ItemNames.TRANSTURTLE_KELP_FOREST,
-                                 AquariaLocationNames.KELP_FOREST_BOTTOM_LEFT_AREA_TRANSTURTLE, precollected)
-            self.__pre_fill_item(ItemNames.TRANSTURTLE_HOME_WATERS, AquariaLocationNames.HOME_WATERS_TRANSTURTLE, precollected)
+                                 AquariaLocationNames.KELP_FOREST_BOTTOM_LEFT_AREA_TRANSTURTLE)
+            self.__pre_fill_item(ItemNames.TRANSTURTLE_HOME_WATERS, AquariaLocationNames.HOME_WATERS_TRANSTURTLE)
             if (self.options.objective.value != Objective.option_killing_the_four_gods and
                     self.options.objective.value != Objective.option_gods_and_creator):
-                self.__pre_fill_item(ItemNames.TRANSTURTLE_ABYSS, AquariaLocationNames.ABYSS_RIGHT_AREA_TRANSTURTLE,
-                                     precollected)
-                self.__pre_fill_item(ItemNames.TRANSTURTLE_BODY, AquariaLocationNames.FINAL_BOSS_AREA_TRANSTURTLE,
-                                     precollected)
+                self.__pre_fill_item(ItemNames.TRANSTURTLE_ABYSS, AquariaLocationNames.ABYSS_RIGHT_AREA_TRANSTURTLE)
+                self.__pre_fill_item(ItemNames.TRANSTURTLE_BODY, AquariaLocationNames.FINAL_BOSS_AREA_TRANSTURTLE)
             # The last two are inverted because in the original game, they are special turtle that communicate directly
             self.__pre_fill_item(ItemNames.TRANSTURTLE_SIMON_SAYS, AquariaLocationNames.ARNASSI_RUINS_TRANSTURTLE,
-                                 precollected, ItemClassification.progression)
-            self.__pre_fill_item(ItemNames.TRANSTURTLE_ARNASSI_RUINS, AquariaLocationNames.SIMON_SAYS_AREA_TRANSTURTLE,
-                                 precollected)
+                                 ItemClassification.progression)
+            self.__pre_fill_item(ItemNames.TRANSTURTLE_ARNASSI_RUINS, AquariaLocationNames.SIMON_SAYS_AREA_TRANSTURTLE)
         if not self.options.throne_as_location:
             self.__pre_fill_item(ItemNames.DOOR_TO_CATHEDRAL, AquariaLocationNames.SITTING_ON_THRONE,
-                                 precollected, ItemClassification.progression)
-        for name, data in item_table.items():
-            for i in range(data.count):
-                if name in self.exclude:
-                    self.exclude.remove(name)
-                else:
-                    item = self.create_item(name)
-                    self.multiworld.itempool.append(item)
+                                 ItemClassification.progression)
+
+
+    def __add_item_to_pool(self, item: Item):
+        pool_item = item
+        if self.options.progressive_recipes:
+            if item_table[item.name].group == ItemGroup.RECIPE_LOAF:
+                pool_item = self.create_item(ItemNames.PROGRESSIVE_LOAF)
+            elif item_table[item.name].group == ItemGroup.RECIPE_SOUP:
+                pool_item = self.create_item(ItemNames.PROGRESSIVE_SOUP)
+            elif item_table[item.name].group == ItemGroup.RECIPE_CAKE:
+                pool_item = self.create_item(ItemNames.PROGRESSIVE_CAKE)
+            elif item_table[item.name].group == ItemGroup.RECIPE_POULTICE:
+                pool_item = self.create_item(ItemNames.PROGRESSIVE_POULTICE)
+            elif item_table[item.name].group == ItemGroup.RECIPE_ROLL:
+                pool_item = self.create_item(ItemNames.PROGRESSIVE_ROLL)
+            elif item_table[item.name].group == ItemGroup.RECIPE_PEROGI:
+                pool_item = self.create_item(ItemNames.PROGRESSIVE_PEROGI)
+            elif item_table[item.name].group == ItemGroup.RECIPE_ICE_CREAM:
+                pool_item = self.create_item(ItemNames.PROGRESSIVE_ICE_CREAM)
+        self.multiworld.itempool.append(pool_item)
+    def create_items(self) -> None:
+        """Create every item in the world"""
+        self.__place_transturtle()
+        if (self.options.objective.value == Objective.option_killing_the_four_gods or
+                self.options.objective.value == Objective.option_gods_and_creator):
+            list_items = four_gods_items
+        else:
+            list_items = normal_items
+
+        item_count = 0
+        for name in list_items:
+            item_count = item_count + 1
+            if name in self.exclude:
+                self.exclude.remove(name)
+            else:
+                item = self.create_item(name)
+                self.__add_item_to_pool(item)
+        location_count = sum(1 if not element.is_event else 0 for element in self.get_locations())
+        while item_count < location_count:
+            self.__add_item_to_pool(self.create_filler())
+            item_count = item_count + 1
 
     def set_rules(self) -> None:
         """
@@ -211,8 +235,7 @@ class AquariaWorld(World):
         elif self.options.early_bind_song == EarlyBindSong.option_early_and_local:
             self.multiworld.local_early_items[self.player][ItemNames.BIND_SONG] = 1
         self.regions.adjusting_rules(self.options)
-        self.multiworld.completion_condition[self.player] = lambda \
-                state: state.has(ItemNames.VICTORY, self.player)
+        self.multiworld.completion_condition[self.player] = lambda state: state.has(ItemNames.VICTORY, self.player)
 
     def generate_basic(self) -> None:
         """

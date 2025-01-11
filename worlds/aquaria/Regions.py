@@ -16,7 +16,7 @@ from worlds.generic.Rules import add_rule, set_rule
 
 def _has_hot_soup(state: CollectionState, player: int) -> bool:
     """`player` in `state` has the hotsoup item"""
-    return state.has_any({ItemNames.HOT_SOUP, ItemNames.HOT_SOUP_X_2}, player)
+    return state.has_any({ItemNames.HOT_SOUP, ItemNames.HOT_SOUP_X_2, ItemNames.PROGRESSIVE_SOUP}, player)
 
 
 def _has_tongue_cleared(state: CollectionState, player: int) -> bool:
@@ -137,18 +137,16 @@ def _has_secrets(state: CollectionState, player: int) -> bool:
     return state.has_all({ItemNames.FIRST_SECRET_OBTAINED, ItemNames.SECOND_SECRET_OBTAINED,
                           ItemNames.THIRD_SECRET_OBTAINED}, player)
 
+
 def _item_not_advancement(item: Item):
     """The `item` is not an advancement item"""
     return not item.advancement
+
 
 def _is_cathedral_door_opened(state: CollectionState, player: int) -> bool:
     """The door to Mithalas Cathedral has been opened in the `state` of the `player`"""
     return state.has(ItemNames.DOOR_TO_CATHEDRAL, player)
 
-
-def _item_not_advancement(item: Item):
-    """The `item` is not an advancement item"""
-    return not item.advancement
 
 class AquariaRegions:
     """
