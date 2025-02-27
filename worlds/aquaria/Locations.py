@@ -272,6 +272,7 @@ class AquariaLocationNames:
     SUNKEN_CITY_LEFT_AREA_CRATE_BEFORE_THE_BEDROOM = "Sunken City left area, crate before the bedroom"
     SUNKEN_CITY_LEFT_AREA_GIRL_COSTUME = "Sunken City left area, Girl Costume"
     SUNKEN_CITY_BULB_ON_TOP_OF_THE_BOSS_AREA = "Sunken City, bulb on top of the boss area"
+    SUNKEN_CITY_BEATING_GOLEM = "Sunken City, beating the Golem"
     THE_BODY_CENTER_AREA_BREAKING_LI_S_CAGE = "The Body center area, breaking Li's cage"
     THE_BODY_CENTER_AREA_BULB_ON_THE_MAIN_PATH_BLOCKING_TUBE = \
         "The Body center area, bulb on the main path blocking tube"
@@ -768,6 +769,7 @@ class AquariaLocations:
 
     locations_sunken_city_boss = {
         AquariaLocationNames.SUNKEN_CITY_BULB_ON_TOP_OF_THE_BOSS_AREA: 698043,
+        AquariaLocationNames.SUNKEN_CITY_BEATING_GOLEM: 698219
     }
 
     locations_body_c = {

@@ -19,9 +19,9 @@ def _has_hot_soup(state: CollectionState, player: int) -> bool:
     return state.has_any({ItemNames.HOT_SOUP, ItemNames.HOT_SOUP_X_2, ItemNames.PROGRESSIVE_SOUP}, player)
 
 
-def _has_tongue_cleared(state: CollectionState, player: int) -> bool:
-    """`player` in `state` has the Body tongue cleared item"""
-    return state.has(ItemNames.BODY_TONGUE_CLEARED, player)
+def _has_door_to_body(state: CollectionState, player: int) -> bool:
+    """`player` in `state` has the door to the body (the tongue) opened event"""
+    return state.has(ItemNames.DOOR_TO_BODY, player)
 
 
 def _has_sun_crystal(state: CollectionState, player: int) -> bool:
@@ -109,6 +109,11 @@ def _has_big_bosses(state: CollectionState, player: int) -> bool:
     """`player` in `state` has beated every big bosses"""
     return state.has_all({ItemNames.FALLEN_GOD_BEATED, ItemNames.MITHALAN_GOD_BEATED, ItemNames.DRUNIAN_GOD_BEATED,
                           ItemNames.LUMEREAN_GOD_BEATED, ItemNames.THE_GOLEM_BEATED}, player)
+
+
+def _has_golem_beated(state: CollectionState, player: int) -> bool:
+    """`player` in `state` has beated the golem boss"""
+    return state.has(ItemNames.THE_GOLEM_BEATED, player)
 
 
 def _has_four_gods_beated(state: CollectionState, player: int) -> bool:
@@ -769,7 +774,7 @@ class AquariaRegions:
         self.__connect_regions(self.abyss_lb, self.sunken_city_r,
                                lambda state: _has_li(state, self.player))
         self.__connect_one_way_regions(self.abyss_lb, self.body_c,
-                                       lambda state: _has_tongue_cleared(state, self.player))
+                                       lambda state: _has_door_to_body(state, self.player))
         self.__connect_one_way_regions(self.body_c, self.abyss_lb)
         self.__connect_one_way_regions(self.abyss_l, self.king_jellyfish_cave,
                                        lambda state: _has_dual_form(state, self.player) or
@@ -900,6 +905,8 @@ class AquariaRegions:
         if (options.objective.value == Objective.option_killing_the_four_gods or
                 options.objective.value == Objective.option_gods_and_creator):
             self.__connect_four_gods_end(options)
+            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.abyss_lb, self.body_c),
+                                                  self.player), lambda state: True, combine="or")
         self.__connect_transturtles()
 
     def __add_event_location(self, region: Region, name: str, event_name: str) -> None:
@@ -990,9 +997,6 @@ class AquariaRegions:
                                   AquariaLocationNames.SUN_CRYSTAL,
                                   ItemNames.HAS_SUN_CRYSTAL)
         self.__add_event_big_bosses()
-        self.__add_event_location(self.sunken_city_boss,
-                                  AquariaLocationNames.SUNKEN_CITY_CLEARED,
-                                  ItemNames.BODY_TONGUE_CLEARED)
         if (options.objective.value == Objective.option_killing_the_four_gods or
                 options.objective.value == Objective.option_gods_and_creator):
             self.__add_event_location(self.four_gods_end, AquariaLocationNames.OBJECTIVE_COMPLETE,
@@ -1147,9 +1151,10 @@ class AquariaRegions:
                      lambda state: _has_fish_form(state, self.player))
             add_rule(
                 self.multiworld.get_location(AquariaLocationNames.THE_BODY_CENTER_AREA_BREAKING_LI_S_CAGE, self.player),
-                lambda state: _has_tongue_cleared(state, self.player))
+                lambda state: _has_golem_beated(state, self.player))
 
     def __no_progression_hard_or_hidden_location(self, options: AquariaOptions) -> None:
+        """Removing advancement (or progression) items from hard to get locations."""
         self.multiworld.get_location(AquariaLocationNames.ENERGY_TEMPLE_BOSS_AREA_FALLEN_GOD_TOOTH,
                                      self.player).item_rule = _item_not_advancement
         self.multiworld.get_location(AquariaLocationNames.MITHALAS_BOSS_AREA_BEATING_MITHALAN_GOD,
@@ -1189,6 +1194,11 @@ class AquariaRegions:
             options.objective.value != Objective.option_gods_and_creator):
             self.multiworld.get_location(AquariaLocationNames.SUNKEN_CITY_BULB_ON_TOP_OF_THE_BOSS_AREA,
                                          self.player).item_rule = _item_not_advancement
+            if (options.golem_as_location):
+                self.multiworld.get_location(AquariaLocationNames.SUNKEN_CITY_BEATING_GOLEM,
+                                             self.player).item_rule = _item_not_advancement
+                self.multiworld.get_location(AquariaLocationNames.THE_BODY_CENTER_AREA_BREAKING_LI_S_CAGE,
+                                             self.player).item_rule = _item_not_advancement
             self.multiworld.get_location(AquariaLocationNames.THE_BODY_BOTTOM_AREA_MUTANT_COSTUME,
                                          self.player).item_rule = _item_not_advancement
             self.multiworld.get_location(AquariaLocationNames.FINAL_BOSS_AREA_BULB_IN_THE_BOSS_THIRD_FORM_ROOM,

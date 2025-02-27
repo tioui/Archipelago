@@ -13,7 +13,7 @@ from .Options import (AquariaOptions, IngredientRandomizer, TurtleRandomizer, Ea
                       UnconfineHomeWater, Objective)
 from .Regions import AquariaRegions
 
-CLIENT_MINIMAL_COMPATIBILITY = [1, 4, 1]
+CLIENT_MINIMAL_COMPATIBILITY = [1, 4, 2]
 
 
 class AquariaWeb(WebWorld):
@@ -108,13 +108,6 @@ class AquariaWorld(World):
         self.ingredients_substitution = []
         self.exclude = []
 
-    def generate_early(self) -> None:
-        """
-        Run before any general steps of the MultiWorld other than options. Useful for getting and adjusting option
-        results and determining layouts for entrance rando etc. start inventory gets pushed after this step.
-        """
-        self.regions = AquariaRegions(self.multiworld, self.player)
-
     def create_regions(self) -> None:
         """
         Create every Region in `regions`
@@ -164,6 +157,10 @@ class AquariaWorld(World):
                 self.options.objective.value == Objective.option_gods_and_creator):
             self.__pre_fill_item(ItemNames.TRANSTURTLE_ABYSS, AquariaLocationNames.ABYSS_RIGHT_AREA_TRANSTURTLE)
             self.__pre_fill_item(ItemNames.TRANSTURTLE_BODY, AquariaLocationNames.FINAL_BOSS_AREA_TRANSTURTLE)
+        else:
+            if not self.options.golem_as_location:
+                self.__pre_fill_item(ItemNames.DOOR_TO_BODY, AquariaLocationNames.SUNKEN_CITY_BEATING_GOLEM,
+                                     ItemClassification.progression)
         if self.options.turtle_randomizer.value != TurtleRandomizer.option_none:
             if (self.options.turtle_randomizer.value == TurtleRandomizer.option_all_except_final and
                     self.options.objective.value != Objective.option_killing_the_four_gods and
@@ -227,7 +224,7 @@ class AquariaWorld(World):
             else:
                 item = self.create_item(name)
                 self.__add_item_to_pool(item)
-        location_count = sum(1 if not element.is_event else 0 for element in self.get_locations())
+        location_count = sum(1 if not element.is_event else 0 for element in self.multiworld.get_locations(self.player))
         while item_count < location_count:
             self.__add_item_to_pool(self.create_filler())
             item_count = item_count + 1
@@ -281,7 +278,6 @@ class AquariaWorld(World):
                 "skip_first_vision": bool(self.options.skip_first_vision.value),
                 "skip_final_boss_3rd_form": bool(self.options.skip_final_boss_3rd_form.value),
                 "infinite_hot_soup": bool(self.options.infinite_hot_soup.value),
-                "open_body_tongue": bool(self.options.open_body_tongue.value),
                 "unconfine_home_water_energy_door":
                     self.options.unconfine_home_water.value == UnconfineHomeWater.option_via_energy_door
                     or self.options.unconfine_home_water.value == UnconfineHomeWater.option_via_both,
@@ -305,5 +301,6 @@ class AquariaWorld(World):
                 "no_progression_body": bool(self.options.no_progression_body),
                 "save_healing": bool(self.options.save_healing),
                 "throne_as_location": bool(self.options.throne_as_location),
+                "golem_as_location": bool(self.options.golem_as_location),
                 "required_client_version": CLIENT_MINIMAL_COMPATIBILITY,
                 }

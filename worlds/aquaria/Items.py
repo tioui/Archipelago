@@ -221,6 +221,7 @@ class ItemNames:
     TRANSTURTLE_SIMON_SAYS = "Transturtle Simon Says"
     TRANSTURTLE_ARNASSI_RUINS = "Transturtle Arnassi Ruins"
     DOOR_TO_CATHEDRAL = "Door to the Cathedral opened"
+    DOOR_TO_BODY = "Body's tongue removed"
     TRAP_POISON = "Poison Trap"
     TRAP_BLIND = "Blind Trap"
     TRAP_RAINBOW = "Rainbow Trap"
@@ -405,6 +406,7 @@ item_table = {
     ItemNames.PROGRESSIVE_ROLL: ItemData(698143, ItemType.NORMAL, ItemGroup.PROGRESSIVE),
     ItemNames.PROGRESSIVE_PEROGI: ItemData(698144, ItemType.NORMAL, ItemGroup.PROGRESSIVE),
     ItemNames.PROGRESSIVE_ICE_CREAM: ItemData(698145, ItemType.NORMAL, ItemGroup.PROGRESSIVE),
+    ItemNames.DOOR_TO_BODY: ItemData(698146, ItemType.PROGRESSION, ItemGroup.DOOR),  # door_to_body
 }
 
 normal_items: list[str] = [
@@ -591,7 +593,8 @@ normal_items: list[str] = [
     ItemNames.TRANSTURTLE_BODY,
     ItemNames.TRANSTURTLE_SIMON_SAYS,
     ItemNames.TRANSTURTLE_ARNASSI_RUINS,
-    ItemNames.DOOR_TO_CATHEDRAL
+    ItemNames.DOOR_TO_CATHEDRAL,
+    ItemNames.DOOR_TO_BODY
 ]
 
 four_gods_items: list[str] = [

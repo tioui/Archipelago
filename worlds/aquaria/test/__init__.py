@@ -198,6 +198,7 @@ after_home_water_locations = [
     AquariaLocationNames.BEATING_MITHALAN_GOD,
     AquariaLocationNames.BEATING_DRUNIAN_GOD,
     AquariaLocationNames.BEATING_LUMEREAN_GOD,
+    AquariaLocationNames.SUNKEN_CITY_BEATING_GOLEM,
     AquariaLocationNames.BEATING_THE_GOLEM,
     AquariaLocationNames.BEATING_NAUTILUS_PRIME,
     AquariaLocationNames.BEATING_BLASTER_PEG_PRIME,
@@ -210,7 +211,6 @@ after_home_water_locations = [
     AquariaLocationNames.FIRST_SECRET,
     AquariaLocationNames.SECOND_SECRET,
     AquariaLocationNames.THIRD_SECRET,
-    AquariaLocationNames.SUNKEN_CITY_CLEARED,
     AquariaLocationNames.OBJECTIVE_COMPLETE,
 ]
 

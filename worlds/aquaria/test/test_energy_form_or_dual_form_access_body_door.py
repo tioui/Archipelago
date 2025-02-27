@@ -1,7 +1,7 @@
 """
 Author: Louis M
 Date: Thu, 18 Apr 2024 18:45:56 +0000
-Description: Unit test used to test accessibility of locations with and without the energy form and dual form (and Li)
+Description: Unit test used to test accessibility with an attack item and the access to the body.
 """
 
 from . import AquariaTestBase
@@ -44,16 +44,19 @@ class EnergyFormDualFormAccessTest(AquariaTestBase):
             AquariaLocationNames.SUNKEN_CITY_LEFT_AREA_CRATE_BEFORE_THE_BEDROOM,
             AquariaLocationNames.SUNKEN_CITY_LEFT_AREA_GIRL_COSTUME,
             AquariaLocationNames.SUNKEN_CITY_BULB_ON_TOP_OF_THE_BOSS_AREA,
+            AquariaLocationNames.THE_BODY_CENTER_AREA_BREAKING_LI_S_CAGE,
+            AquariaLocationNames.THE_BODY_CENTER_AREA_BULB_ON_THE_MAIN_PATH_BLOCKING_TUBE,
             AquariaLocationNames.THE_BODY_LEFT_AREA_FIRST_BULB_IN_THE_TOP_FACE_ROOM,
             AquariaLocationNames.THE_BODY_LEFT_AREA_SECOND_BULB_IN_THE_TOP_FACE_ROOM,
             AquariaLocationNames.THE_BODY_LEFT_AREA_BULB_BELOW_THE_WATER_STREAM,
-            AquariaLocationNames.THE_BODY_LEFT_AREA_BULB_IN_THE_BOTTOM_FACE_ROOM,
             AquariaLocationNames.THE_BODY_LEFT_AREA_BULB_IN_THE_TOP_PATH_TO_THE_TOP_FACE_ROOM,
-            AquariaLocationNames.THE_BODY_RIGHT_AREA_BULB_IN_THE_BOTTOM_FACE_ROOM,
+            AquariaLocationNames.THE_BODY_LEFT_AREA_BULB_IN_THE_BOTTOM_FACE_ROOM,
+            AquariaLocationNames.THE_BODY_RIGHT_AREA_BULB_IN_THE_TOP_FACE_ROOM,
             AquariaLocationNames.THE_BODY_RIGHT_AREA_BULB_IN_THE_TOP_PATH_TO_THE_BOTTOM_FACE_ROOM,
-            AquariaLocationNames.THE_BODY_BOTTOM_AREA_MUTANT_COSTUME,
-            AquariaLocationNames.THE_BODY_BOTTOM_AREA_BULB_IN_THE_NAUTILUS_ROOM,
+            AquariaLocationNames.THE_BODY_RIGHT_AREA_BULB_IN_THE_BOTTOM_FACE_ROOM,
             AquariaLocationNames.THE_BODY_BOTTOM_AREA_BULB_IN_THE_JELLY_ZAP_ROOM,
+            AquariaLocationNames.THE_BODY_BOTTOM_AREA_BULB_IN_THE_NAUTILUS_ROOM,
+            AquariaLocationNames.THE_BODY_BOTTOM_AREA_MUTANT_COSTUME,
             AquariaLocationNames.FINAL_BOSS_AREA_BULB_IN_THE_BOSS_THIRD_FORM_ROOM,
             AquariaLocationNames.BEATING_FALLEN_GOD,
             AquariaLocationNames.BEATING_BLASTER_PEG_PRIME,
@@ -71,5 +74,5 @@ class EnergyFormDualFormAccessTest(AquariaTestBase):
             AquariaLocationNames.FIRST_SECRET,
             AquariaLocationNames.OBJECTIVE_COMPLETE
         ]
-        items = [[ItemNames.ENERGY_FORM, ItemNames.DUAL_FORM, ItemNames.LI_AND_LI_SONG, ItemNames.BODY_TONGUE_CLEARED]]
+        items = [[ItemNames.ENERGY_FORM, ItemNames.DUAL_FORM, ItemNames.LI_AND_LI_SONG, ItemNames.DOOR_TO_BODY]]
         self.assertAccessDependency(locations, items)

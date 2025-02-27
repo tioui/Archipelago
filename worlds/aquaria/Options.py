@@ -178,13 +178,6 @@ class SaveHealing(DefaultOnToggle):
     display_name = "Save heal Naija"
 
 
-class OpenBodyTongue(Toggle):
-    """
-    Remove the body tongue making the body accessible without going in the sunken city
-    """
-    display_name = "Open the body tongue"
-
-
 class SkipFinalBoss3rdForm(Toggle):
     """
     The Final boss third form (the hide and seek form) can be easy and quite long. So, this option can be used
@@ -220,10 +213,18 @@ class UnconfineHomeWater(Choice):
     default = 0
 
 
-class ThroneAsLocation(Toggle):
+class ThroneAsLocation(DefaultOnToggle):
     """
     If enabled, sitting on the Mithalas City Castle throne (with the seal on it) will be a location and opening the
     door to the Mithalas Cathedral will be an item.
+    """
+    display_name = "Throne as a location"
+
+
+class GolemAsLocation(DefaultOnToggle):
+    """
+    If enabled, beating the golem in Sunken City will be a location and opening the
+    body's tongue will be an item.
     """
     display_name = "Throne as a location"
 
@@ -354,11 +355,11 @@ class AquariaOptions(PerGameCommonOptions):
     skip_first_vision: SkipFirstVision
     blind_goal: BlindGoal
     infinite_hot_soup: InfiniteHotSoup
-    open_body_tongue: OpenBodyTongue
     maximum_ingredient_amount: MaximumIngredientAmount
     skip_final_boss_3rd_form: SkipFinalBoss3rdForm
     save_healing: SaveHealing
     throne_as_location: ThroneAsLocation
+    golem_as_location: GolemAsLocation
     traps_enabled: TrapsEnabled
     progressive_recipes: ProgressiveRecipes
     no_progression_hard_or_hidden_locations: NoProgressionHardOrHiddenLocation
