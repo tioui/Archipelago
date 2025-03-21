@@ -8,7 +8,8 @@ from typing import Dict, Optional
 from BaseClasses import MultiWorld, Region, Entrance, Item, ItemClassification, CollectionState
 from .Items import AquariaItem, ItemNames
 from .Locations import AquariaLocations, AquariaLocation, AquariaLocationNames
-from .Options import AquariaOptions, UnconfineHomeWater, LightNeededToGetToDarkPlaces, Objective
+from .Options import (AquariaOptions, UnconfineHomeWater, LightNeededToGetToDarkPlaces, GoAroundRocksWithFishForm,
+                      Objective)
 from worlds.generic.Rules import add_rule, set_rule
 
 
@@ -574,10 +575,10 @@ class AquariaRegions:
         self.__connect_regions(self.home_water_behind_rocks, self.home_water_nautilus,
                                lambda state: _has_energy_attack_item(state, self.player))
         self.__connect_regions(self.home_water, self.home_water_transturtle)
-        self.__connect_regions(self.home_water_behind_rocks, self.energy_temple_1)
+        self.__connect_regions(self.home_water, self.energy_temple_1,
+                               lambda state: _has_bind_song(state, self.player))
         self.__connect_regions(self.home_water_behind_rocks, self.energy_temple_altar,
-                               lambda state: _has_energy_attack_item(state, self.player) and
-                                             _has_bind_song(state, self.player))
+                               lambda state: _has_energy_attack_item(state, self.player))
         self.__connect_regions(self.energy_temple_1, self.energy_temple_2,
                                lambda state: _has_energy_form(state, self.player))
         self.__connect_regions(self.energy_temple_1, self.energy_temple_idol,
@@ -1023,6 +1024,44 @@ class AquariaRegions:
                                          self.player),
             lambda state: _has_beast_and_soup_form(state, self.player))
 
+    def __adjusting_fish_form_glitch(self, fish_form_glitch_option:GoAroundRocksWithFishForm) -> None:
+        """
+        Modify rules for location that can be access with fish form glitch
+        """
+        add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.home_water, self.home_water_transturtle),
+                                              self.player), lambda state: _has_fish_form(state, self.player),
+                                              combine="or")
+        add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.home_water_transturtle, self.home_water),
+                                              self.player), lambda state: _has_fish_form(state, self.player),
+                                              combine="or")
+        add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.home_water, self.home_water_behind_rocks),
+                                              self.player), lambda state: _has_fish_form(state, self.player),
+                                              combine="or")
+        add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.home_water_behind_rocks, self.home_water),
+                                              self.player), lambda state: _has_fish_form(state, self.player),
+                                              combine="or")
+        add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.veil_b, self.veil_b_fp),
+                                              self.player), lambda state: _has_fish_form(state, self.player),
+                                              combine="or")
+        add_rule(self.multiworld.get_location(
+            AquariaLocationNames.ENERGY_TEMPLE_FIRST_AREA_BULB_IN_THE_BOTTOM_ROOM_BLOCKED_BY_A_ROCK,
+            self.player), lambda state: _has_fish_form(state, self.player), combine="or")
+        add_rule(
+            self.multiworld.get_location(
+                AquariaLocationNames.THE_VEIL_TOP_LEFT_AREA_BULB_HIDDEN_BEHIND_THE_BLOCKING_ROCK, self.player),
+            lambda state: _has_fish_form(state, self.player), combine="or")
+        if fish_form_glitch_option == GoAroundRocksWithFishForm.option_all:
+            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.home_water, self.energy_temple_1),
+                                                  self.player), lambda state: _has_fish_form(state, self.player),
+                                                  combine="or")
+            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.energy_temple_1, self.home_water),
+                                                  self.player), lambda state: _has_fish_form(state, self.player),
+                                                  combine="or")
+            add_rule(self.multiworld.get_location(AquariaLocationNames.SONG_CAVE_VERSE_EGG, self.player),
+                     lambda state: _has_fish_form(state, self.player), combine="or")
+            add_rule(self.multiworld.get_location(AquariaLocationNames.TURTLE_CAVE_TURTLE_EGG, self.player),
+                     lambda state: _has_fish_form(state, self.player), combine="or")
+
     def __adjusting_under_rock_location(self, options: AquariaOptions) -> None:
         """
         Modify rules implying bind song needed for bulb under rocks
@@ -1356,6 +1395,8 @@ class AquariaRegions:
         self.__adjusting_manual_rules(options)
         self.__adjusting_soup_rules()
         self.__no_progression_areas(options)
+        if options.go_around_rocks_with_fish_form != GoAroundRocksWithFishForm.option_off:
+            self.__adjusting_fish_form_glitch(options.go_around_rocks_with_fish_form)
         if options.light_needed_to_get_to_dark_places != LightNeededToGetToDarkPlaces.option_off:
             self.__adjusting_light_in_dark_place_rules(options.light_needed_to_get_to_dark_places)
         if options.bind_song_needed_to_get_under_rock_bulb:

@@ -244,6 +244,30 @@ class ProgressiveRecipes(Toggle):
     display_name = "Progressive Recipes"
 
 
+class GoAroundRocksWithFishForm(Choice):
+    """
+    Using Fish Form, you can sometime go around rocks.
+    Easier place to go around rocks with Fish Form are:
+    "Home Water, rock to access the Transportation turtle",
+    "Home Water, rock to access the bottom left path",
+    "Home Water, rock to access the Nautilus Lair",
+    "Energy temple first area, rock bellow the save room exit",
+    "Veil bottom area, rock to access the Verse Egg",
+    "The Veil top left area, Rock blocking a bulb close to the right exit".
+    Harder place are:
+    "Home Water, rock to access the Energy temple",
+    "Song Cave, rock to access the Verse Egg",
+    "Turtle Cave, rocks to access the Turtle Egg",
+    """
+    display_name = "Use Fish Form to go around rocks"
+    option_off = 0
+    alias_false = 0
+    option_easy_only = 1
+    option_all = 2
+    alias_on = 1
+    alias_true = 1
+    default = 0
+
 class NoProgressionHardOrHiddenLocation(Toggle):
     """
     Make sure that there are no progression items at hard-to-reach or hard-to-find locations.
@@ -362,6 +386,7 @@ class AquariaOptions(PerGameCommonOptions):
     golem_as_location: GolemAsLocation
     traps_enabled: TrapsEnabled
     progressive_recipes: ProgressiveRecipes
+    go_around_rocks_with_fish_form: GoAroundRocksWithFishForm
     no_progression_hard_or_hidden_locations: NoProgressionHardOrHiddenLocation
     no_progression_simon_says: NoProgressionSimonSays
     no_progression_kelp_forest: NoProgressionKelpForest
