@@ -243,19 +243,49 @@ class ProgressiveRecipes(Toggle):
     """
     display_name = "Progressive Recipes"
 
+class FarAwaySingBulb(Toggle):
+    """
+    If enabled, you may have to obtain sing bulb without the normal requirement by singing
+    from far away. The bulb that ca be obtained that way are:
+    Naija's Home, bulb after the energy door;
+    The Veil bottom area, bulb in the spirit path
+    """
+
+class SunTempleSaveCristalGlitch(Toggle):
+    """
+    If enabled, the randomizer logic will consider it possible to pass from
+    the Sun Temple left area to the Sun Temple right area by crossing the wall using the
+    save crystal.
+    Note: You will have to cross the big dark room without light.
+    """
+    display_name = "Sun Temple save cristal glitch"
+
+class MithalasDarkJellyGlitch(Toggle):
+    """
+    If enabled, the randomizer logic will consider it possible to go through the
+    Mithalas top area current using a Dark Jelly.
+    """
+    display_name = "Mithalas Dark Jelly glitch"
+
+class TridentHeadWithFishFormGlitch(Toggle):
+    """
+    If enabled, the randomizer logic will consider it possible to go through the
+    stream to get the trident head using the fish form.
+    """
+    display_name = "Trident Head with Fish Form Glitch"
 
 class GoAroundRocksWithFishForm(Choice):
     """
     Using Fish Form, you can sometime go around rocks.
     Easier place to go around rocks with Fish Form are:
-    "Home Water, rock to access the Transportation turtle",
-    "Home Water, rock to access the bottom left path",
-    "Home Water, rock to access the Nautilus Lair",
+    "Home Waters, rock to access the Transportation turtle",
+    "Home Waters, rock to access the bottom left path",
+    "Home Waters, rock to access the Nautilus Lair",
     "Energy temple first area, rock bellow the save room exit",
     "Veil bottom area, rock to access the Verse Egg",
     "The Veil top left area, Rock blocking a bulb close to the right exit".
     Harder place are:
-    "Home Water, rock to access the Energy temple",
+    "Home Waters, rock to access the Energy temple",
     "Song Cave, rock to access the Verse Egg",
     "Turtle Cave, rocks to access the Turtle Egg",
     """
@@ -386,7 +416,11 @@ class AquariaOptions(PerGameCommonOptions):
     golem_as_location: GolemAsLocation
     traps_enabled: TrapsEnabled
     progressive_recipes: ProgressiveRecipes
+    far_away_sing_bulb: FarAwaySingBulb
     go_around_rocks_with_fish_form: GoAroundRocksWithFishForm
+    sun_temple_save_cristal_glitch: SunTempleSaveCristalGlitch
+    mithalas_dark_jelly_glitch:MithalasDarkJellyGlitch
+    trident_head_with_fish_form_glitch:TridentHeadWithFishFormGlitch
     no_progression_hard_or_hidden_locations: NoProgressionHardOrHiddenLocation
     no_progression_simon_says: NoProgressionSimonSays
     no_progression_kelp_forest: NoProgressionKelpForest

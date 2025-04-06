@@ -730,7 +730,8 @@ class AquariaRegions:
 
     def __connect_veil_regions(self) -> None:
         """
-        Connect entrances of the different regions around The Veil
+        Connect entrances of the differeself.veil_b, self.veil_b_sc,
+                               lambda state: _has_spirit_form(state, self.player)nt regions around The Veil
         """
         self.__connect_regions(self.veil_b, self.veil_b_fp,
                                lambda state: _has_fish_form(state, self.player) and
@@ -1395,8 +1396,15 @@ class AquariaRegions:
         self.__adjusting_manual_rules(options)
         self.__adjusting_soup_rules()
         self.__no_progression_areas(options)
-        if options.go_around_rocks_with_fish_form != GoAroundRocksWithFishForm.option_off:
-            self.__adjusting_fish_form_glitch(options.go_around_rocks_with_fish_form)
+        if options.far_away_sing_bulb:
+            add_rule(
+                self.multiworld.get_location(AquariaLocationNames.NAIJA_S_HOME_BULB_AFTER_THE_ENERGY_DOOR, self.player),
+                lambda state: True, combine="or")
+            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.veil_b, self.veil_b_sc,), self.player),
+                     lambda state: True, combine="or")
+        if options.sun_temple_save_cristal_glitch:
+            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.sun_temple_l_entrance, self.sun_temple_r),
+                                                      self.player), lambda state: True, combine="or")
         if options.light_needed_to_get_to_dark_places != LightNeededToGetToDarkPlaces.option_off:
             self.__adjusting_light_in_dark_place_rules(options.light_needed_to_get_to_dark_places)
         if options.bind_song_needed_to_get_under_rock_bulb:
@@ -1416,6 +1424,8 @@ class AquariaRegions:
                 options.unconfine_home_water.value == UnconfineHomeWater.option_off):
             add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.home_water, self.home_water_transturtle),
                                                   self.player), lambda state: _has_bind_song(state, self.player))
+            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.home_water_transturtle, self.home_water),
+                                                  self.player), lambda state: _has_bind_song(state, self.player))
         if (options.unconfine_home_water.value == UnconfineHomeWater.option_via_transturtle or
                 options.unconfine_home_water.value == UnconfineHomeWater.option_off):
             add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.home_water, self.openwater_tl),
@@ -1424,6 +1434,20 @@ class AquariaRegions:
                                    _has_energy_attack_item(state, self.player))
         if options.no_progression_hard_or_hidden_locations:
             self.__no_progression_hard_or_hidden_location(options)
+        if options.go_around_rocks_with_fish_form != GoAroundRocksWithFishForm.option_off:
+            self.__adjusting_fish_form_glitch(options.go_around_rocks_with_fish_form)
+        if options.mithalas_dark_jelly_glitch:
+            add_rule(self.multiworld.get_entrance(
+                self.get_entrance_name(self.mithalas_city, self.mithalas_city_top_path), self.player),
+                lambda state: _has_energy_form(state, self.player) and _has_nature_form(state, self.player),
+                combine="or")
+        if options.trident_head_with_fish_form_glitch:
+            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.mithalas_castle, self.mithalas_castle_sc),
+                                                  self.player),
+                     lambda state: _has_fish_form(state, self.player),combine="or")
+            add_rule(self.multiworld.get_entrance(
+                self.get_entrance_name(self.mithalas_castle_tube, self.mithalas_castle_sc), self.player),
+                     lambda state: _has_fish_form(state, self.player),combine="or")
 
     def __add_home_water_regions_to_world(self) -> None:
         """

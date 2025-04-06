@@ -286,7 +286,7 @@ item_table = {
     ItemNames.KING_S_SKULL: ItemData(698025, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_skull
     ItemNames.SONG_PLANT_SPORE: ItemData(698026, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_spore_seed
     ItemNames.STONE_HEAD: ItemData(698027, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_stone_head
-    ItemNames.SUN_KEY: ItemData(698028, ItemType.NORMAL, ItemGroup.COLLECTIBLE),  # collectible_sun_key
+    ItemNames.SUN_KEY: ItemData(698028, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_sun_key
     ItemNames.GIRL_COSTUME: ItemData(698029, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_teen_costume
     ItemNames.ODD_CONTAINER: ItemData(698030, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_treasure_chest
     ItemNames.TRIDENT: ItemData(698031, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_trident_head
