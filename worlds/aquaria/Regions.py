@@ -1016,10 +1016,10 @@ class AquariaRegions:
                  lambda state: _has_hot_soup(state, self.player))
         add_rule(self.multiworld.get_location(AquariaLocationNames.SUN_TEMPLE_BOSS_PATH_FIRST_CLIFF_BULB, self.player),
                  lambda state: _has_beast_and_soup_form(state, self.player) or
-                               state.has(ItemNames.LUMEREAN_GOD_BEATED, self.player), combine="or")
+                               state.has(ItemNames.LUMEREAN_GOD_BEATED, self.player))
         add_rule(self.multiworld.get_location(AquariaLocationNames.SUN_TEMPLE_BOSS_PATH_SECOND_CLIFF_BULB, self.player),
                  lambda state: _has_beast_and_soup_form(state, self.player) or
-                               state.has(ItemNames.LUMEREAN_GOD_BEATED, self.player), combine="or")
+                               state.has(ItemNames.LUMEREAN_GOD_BEATED, self.player))
         add_rule(
             self.multiworld.get_location(AquariaLocationNames.THE_VEIL_TOP_RIGHT_AREA_BULB_AT_THE_TOP_OF_THE_WATERFALL,
                                          self.player),
@@ -1389,13 +1389,10 @@ class AquariaRegions:
             if options.no_progression_body:
                 self.__no_progression_body()
 
-    def adjusting_rules(self, options: AquariaOptions) -> None:
+    def __adjusting_glitch_rules(self, options: AquariaOptions) -> None:
         """
-        Modify rules for single location or optional rules
+        Modify rules for Glitched
         """
-        self.__adjusting_manual_rules(options)
-        self.__adjusting_soup_rules()
-        self.__no_progression_areas(options)
         if options.far_away_sing_bulb:
             add_rule(
                 self.multiworld.get_location(AquariaLocationNames.NAIJA_S_HOME_BULB_AFTER_THE_ENERGY_DOOR, self.player),
@@ -1405,6 +1402,38 @@ class AquariaRegions:
         if options.sun_temple_save_cristal_glitch:
             add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.sun_temple_l_entrance, self.sun_temple_r),
                                                       self.player), lambda state: True, combine="or")
+        if options.go_around_rocks_with_fish_form != GoAroundRocksWithFishForm.option_off:
+            self.__adjusting_fish_form_glitch(options.go_around_rocks_with_fish_form)
+        if options.mithalas_dark_jelly_glitch:
+            add_rule(self.multiworld.get_entrance(
+                self.get_entrance_name(self.mithalas_city, self.mithalas_city_top_path), self.player),
+                lambda state: _has_energy_form(state, self.player) and _has_nature_form(state, self.player),
+                combine="or")
+        if options.trident_head_with_fish_form_glitch:
+            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.mithalas_castle, self.mithalas_castle_sc),
+                                                  self.player),
+                     lambda state: _has_fish_form(state, self.player),combine="or")
+            add_rule(self.multiworld.get_entrance(
+                self.get_entrance_name(self.mithalas_castle_tube, self.mithalas_castle_sc), self.player),
+                     lambda state: _has_fish_form(state, self.player),combine="or")
+        if options.sun_temple_cliff_nature_jump_glitch:
+            add_rule(
+                self.multiworld.get_location(AquariaLocationNames.SUN_TEMPLE_BOSS_PATH_FIRST_CLIFF_BULB, self.player),
+                lambda state: _has_nature_form(state, self.player), combine="or")
+            add_rule(
+                self.multiworld.get_location(AquariaLocationNames.SUN_TEMPLE_BOSS_PATH_SECOND_CLIFF_BULB, self.player),
+                lambda state: _has_nature_form(state, self.player), combine="or")
+        if options.bind_rock_urchin_costume:
+            add_rule(self.multiworld.get_location(AquariaLocationNames.TURTLE_CAVE_URCHIN_COSTUME, self.player),
+                     lambda state: _has_bind_song(state, self.player), combine="or")
+
+    def adjusting_rules(self, options: AquariaOptions) -> None:
+        """
+        Modify rules for single location or optional rules
+        """
+        self.__adjusting_manual_rules(options)
+        self.__adjusting_soup_rules()
+        self.__no_progression_areas(options)
         if options.light_needed_to_get_to_dark_places != LightNeededToGetToDarkPlaces.option_off:
             self.__adjusting_light_in_dark_place_rules(options.light_needed_to_get_to_dark_places)
         if options.bind_song_needed_to_get_under_rock_bulb:
@@ -1434,20 +1463,7 @@ class AquariaRegions:
                                    _has_energy_attack_item(state, self.player))
         if options.no_progression_hard_or_hidden_locations:
             self.__no_progression_hard_or_hidden_location(options)
-        if options.go_around_rocks_with_fish_form != GoAroundRocksWithFishForm.option_off:
-            self.__adjusting_fish_form_glitch(options.go_around_rocks_with_fish_form)
-        if options.mithalas_dark_jelly_glitch:
-            add_rule(self.multiworld.get_entrance(
-                self.get_entrance_name(self.mithalas_city, self.mithalas_city_top_path), self.player),
-                lambda state: _has_energy_form(state, self.player) and _has_nature_form(state, self.player),
-                combine="or")
-        if options.trident_head_with_fish_form_glitch:
-            add_rule(self.multiworld.get_entrance(self.get_entrance_name(self.mithalas_castle, self.mithalas_castle_sc),
-                                                  self.player),
-                     lambda state: _has_fish_form(state, self.player),combine="or")
-            add_rule(self.multiworld.get_entrance(
-                self.get_entrance_name(self.mithalas_castle_tube, self.mithalas_castle_sc), self.player),
-                     lambda state: _has_fish_form(state, self.player),combine="or")
+        self.__adjusting_glitch_rules(options)
 
     def __add_home_water_regions_to_world(self) -> None:
         """

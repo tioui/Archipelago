@@ -274,6 +274,13 @@ class TridentHeadWithFishFormGlitch(Toggle):
     """
     display_name = "Trident Head with Fish Form Glitch"
 
+class BindRockUrchinCostume(Toggle):
+    """
+    If enabled, the randomizer logic will consider it possible to get to the Urchin Costume
+    by jumping on a binded rock.
+    """
+    display_name = "Bind and Rock to get Urchin Costume"
+
 class GoAroundRocksWithFishForm(Choice):
     """
     Using Fish Form, you can sometime go around rocks.
@@ -297,6 +304,13 @@ class GoAroundRocksWithFishForm(Choice):
     alias_on = 1
     alias_true = 1
     default = 0
+
+class SunTempleCliffNatureJumpGlitch(Toggle):
+    """
+    If enabled, the randomizer logic will consider it possible to climb the
+    Sun Temple boss path cliffs using the Nature Form jump glitch
+    """
+    display_name = "Using Nature Form jump to climb Sun Temple cliffs"
 
 class NoProgressionHardOrHiddenLocation(Toggle):
     """
@@ -418,9 +432,11 @@ class AquariaOptions(PerGameCommonOptions):
     progressive_recipes: ProgressiveRecipes
     far_away_sing_bulb: FarAwaySingBulb
     go_around_rocks_with_fish_form: GoAroundRocksWithFishForm
+    sun_temple_cliff_nature_jump_glitch: SunTempleCliffNatureJumpGlitch
     sun_temple_save_cristal_glitch: SunTempleSaveCristalGlitch
     mithalas_dark_jelly_glitch:MithalasDarkJellyGlitch
     trident_head_with_fish_form_glitch:TridentHeadWithFishFormGlitch
+    bind_rock_urchin_costume: BindRockUrchinCostume
     no_progression_hard_or_hidden_locations: NoProgressionHardOrHiddenLocation
     no_progression_simon_says: NoProgressionSimonSays
     no_progression_kelp_forest: NoProgressionKelpForest

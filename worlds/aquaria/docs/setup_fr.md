@@ -25,7 +25,7 @@ Désarchiver le randomizer d'Aquaria et copier tous les fichiers de l'archive da
 fichier d'archive devrait contenir les fichiers suivants:
 - aquaria_randomizer.exe
 - OpenAL32.dll
-- override (directory)
+- randomizer_files (directory)
 - SDL2.dll
 - usersettings.xml
 - wrap_oal.dll
@@ -83,7 +83,7 @@ avant de déposer le randomizer à l'intérieur permet de vous assurer de garder
 Désarchiver le fichier tar et copier tous les fichiers qu'il contient dans le répertoire du jeu d'origine d'Aquaria. Les
 fichiers extraient du fichier tar devraient être les suivants:
 - aquaria_randomizer
-- override (directory)
+- randomizer_files (directory)
 - usersettings.xml
 - cacert.pem
 

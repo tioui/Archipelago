@@ -23,7 +23,7 @@ game you play will make sure that every game has its own save game.
 Unzip the Aquaria randomizer release and copy all unzipped files in the Aquaria game folder. The unzipped files are:
 - aquaria_randomizer.exe
 - OpenAL32.dll
-- override (directory)
+- randomizer_files (directory)
 - SDL2.dll
 - usersettings.xml
 - wrap_oal.dll
@@ -79,7 +79,7 @@ the original game will stop working. Copying the folder will guarantee that the 
 
 Untar the Aquaria randomizer release and copy all extracted files in the Aquaria game folder. The extracted files are:
 - aquaria_randomizer
-- override (directory)
+- randomizer_files (directory)
 - usersettings.xml
 - cacert.pem
 
