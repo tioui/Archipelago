@@ -246,10 +246,11 @@ class ProgressiveRecipes(Toggle):
 class FarAwaySingBulb(Toggle):
     """
     If enabled, you may have to obtain sing bulb without the normal requirement by singing
-    from far away. The bulb that ca be obtained that way are:
+    from far away. The bulb that can be obtained that way are:
     Naija's Home, bulb after the energy door;
     The Veil bottom area, bulb in the spirit path
     """
+    display_name = "Far away sing bulb"
 
 class SunTempleSaveCristalGlitch(Toggle):
     """
