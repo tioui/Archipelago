@@ -12,7 +12,7 @@ from ..Locations import AquariaLocationNames
 class BeastFormAccessTest(AquariaTestBase):
     """Unit test used to test accessibility of locations with and without the beast form"""
 
-    def vtest_beast_form_location(self) -> None:
+    def test_beast_form_location(self) -> None:
         """Test locations that require beast form"""
         locations = [
             AquariaLocationNames.MERMOG_CAVE_PIRANHA_EGG,
@@ -22,9 +22,14 @@ class BeastFormAccessTest(AquariaTestBase):
             AquariaLocationNames.SUNKEN_CITY_BULB_ON_TOP_OF_THE_BOSS_AREA,
             AquariaLocationNames.OCTOPUS_CAVE_DUMBO_EGG,
             AquariaLocationNames.SUNKEN_CITY_BEATING_GOLEM,
+            AquariaLocationNames.ABYSS_RIGHT_AREA_BULB_BEHIND_THE_ROCK_IN_THE_WHALE_ROOM,
+            AquariaLocationNames.THE_WHALE_VERSE_EGG,
+            AquariaLocationNames.FINAL_BOSS_AREA_BULB_IN_THE_BOSS_THIRD_FORM_ROOM,
+            AquariaLocationNames.FIRST_SECRET,
             AquariaLocationNames.BEATING_THE_GOLEM,
             AquariaLocationNames.BEATING_MERGOG,
             AquariaLocationNames.BEATING_OCTOPUS_PRIME,
+            AquariaLocationNames.OBJECTIVE_COMPLETE
         ]
         items = [[ItemNames.BEAST_FORM, ItemNames.SUN_FORM]]
         self.assertAccessDependency(locations, items)
