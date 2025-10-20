@@ -244,7 +244,7 @@ class AquariaRegions:
     abyss_r: Region
     abyss_r_transturtle: Region
     ice_cave: Region
-    frozen_feil: Region
+    frozen_veil: Region
     bubble_cave: Region
     bubble_cave_boss: Region
     king_jellyfish_cave: Region
@@ -487,7 +487,7 @@ class AquariaRegions:
                                                AquariaLocations.locations_abyss_r_whale if add_locations else None)
         self.ice_cave = self.__add_region("Ice Cavern",
                                           AquariaLocations.locations_ice_cave if add_locations else None)
-        self.frozen_feil = self.__add_region("Frozen Veil", None)
+        self.frozen_veil = self.__add_region("Frozen Veil", None)
         self.bubble_cave = self.__add_region("Bubble Cave",
                                              AquariaLocations.locations_bubble_cave if add_locations else None)
         self.bubble_cave_boss = self.__add_region("Bubble Cave boss area",
@@ -807,11 +807,11 @@ class AquariaRegions:
                                              _has_energy_attack_item(state, self.player))
         self.__connect_regions(self.abyss_r, self.ice_cave,
                                lambda state: _has_spirit_form(state, self.player))
-        self.__connect_regions(self.ice_cave, self.frozen_feil)
-        self.__connect_one_way_regions(self.frozen_feil, self.bubble_cave,
+        self.__connect_regions(self.ice_cave, self.frozen_veil)
+        self.__connect_one_way_regions(self.frozen_veil, self.bubble_cave,
                                        lambda state: _has_beast_form(state, self.player) or
                                                      _has_hot_soup(state, self.player))
-        self.__connect_one_way_regions(self.bubble_cave, self.frozen_feil)
+        self.__connect_one_way_regions(self.bubble_cave, self.frozen_veil)
         self.__connect_one_way_regions(self.bubble_cave, self.bubble_cave_boss,
                                        lambda state: _has_nature_form(state, self.player) and
                                                      _has_bind_song(state, self.player)
