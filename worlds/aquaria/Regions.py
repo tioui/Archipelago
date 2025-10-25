@@ -390,7 +390,7 @@ class AquariaRegions:
         self.cathedral_underground = self.__add_region("Mithalas Cathedral underground",
                                                        AquariaLocations.locations_cathedral_underground)
         self.cathedral_boss_l = self.__add_region("Mithalas Cathedral, after Mithalan God",
-                                                  AquariaLocations.locations_cathedral_boss)
+                                                  AquariaLocations.locations_cathedral_boss_l)
         self.cathedral_boss_r = self.__add_region("Mithalas Cathedral, before Mithalan God", None)
 
     def __create_forest(self) -> None:
@@ -507,7 +507,7 @@ class AquariaRegions:
         """
         self.sunken_city_l = self.__add_region("Sunken City left area", None)
         self.sunken_city_l_crates = self.__add_region("Sunken City left area",
-                                                      AquariaLocations.locations_sunken_city_l
+                                                      AquariaLocations.locations_sunken_city_l_crates
                                                       if add_locations else None)
         self.sunken_city_l_bedroom = self.__add_region("Sunken City left area, bedroom",
                                                        AquariaLocations.locations_sunken_city_l_bedroom
@@ -1317,7 +1317,7 @@ class AquariaRegions:
         self.__no_progression_area(AquariaLocations.locations_cathedral_top_start_urns)
         self.__no_progression_area(AquariaLocations.locations_cathedral_top_end)
         self.__no_progression_area(AquariaLocations.locations_cathedral_underground)
-        self.__no_progression_area(AquariaLocations.locations_cathedral_boss)
+        self.__no_progression_area(AquariaLocations.locations_cathedral_boss_l)
 
     def __no_progression_energy_temple(self) -> None:
         """Be sure to not put any progression items in the Energy Temple"""
@@ -1356,7 +1356,7 @@ class AquariaRegions:
     def __no_progression_sunken_city(self) -> None:
         """Be sure to not put any progression items in the Sunken City"""
         self.__no_progression_area(AquariaLocations.locations_sunken_city_r)
-        self.__no_progression_area(AquariaLocations.locations_sunken_city_l)
+        self.__no_progression_area(AquariaLocations.locations_sunken_city_l_crates)
         self.__no_progression_area(AquariaLocations.locations_sunken_city_l_bedroom)
         self.__no_progression_area(AquariaLocations.locations_sunken_city_boss)
 
