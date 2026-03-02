@@ -292,7 +292,7 @@ item_table = {
     ItemNames.TRIDENT: ItemData(698031, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_trident_head
     ItemNames.TURTLE_EGG: ItemData(698032, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_turtle_egg
     ItemNames.JELLY_EGG: ItemData(698033, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_upsidedown_seed
-    ItemNames.URCHIN_COSTUME: ItemData(698034, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_urchin_costume
+    ItemNames.URCHIN_COSTUME: ItemData(698034, ItemType.PROGRESSION, ItemGroup.COLLECTIBLE),  # collectible_urchin_costume
     ItemNames.BABY_WALKER: ItemData(698035, ItemType.JUNK, ItemGroup.COLLECTIBLE),  # collectible_walker
     ItemNames.VEDHA_S_CURE_ALL: ItemData(698036, ItemType.NORMAL, ItemGroup.RECIPE_POULTICE),  # ingredient_Vedha'sCure-All
     ItemNames.ZUUNA_S_PEROGI: ItemData(698037, ItemType.NORMAL, ItemGroup.RECIPE_PEROGI),  # ingredient_Zuuna'sperogi
@@ -602,6 +602,7 @@ four_gods_items: list[str] = [
     ItemNames.CRAB_ARMOR,
     ItemNames.BABY_DUMBO,
     ItemNames.JELLY_COSTUME,
+    ItemNames.URCHIN_COSTUME,
     ItemNames.BABY_NAUTILUS,
     ItemNames.BABY_PIRANHA,
     ItemNames.ARNASSI_ARMOR,
