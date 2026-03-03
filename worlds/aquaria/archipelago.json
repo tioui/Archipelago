@@ -1,1 +1,6 @@
-{"compatible_version": 7, "version": 7, "game": "Aquaria"}
+{
+    "game": "Aquaria",
+    "authors": ["Tioui"],
+    "world_version": "1.5.2",
+	"minimum_ap_version": "0.6.0"
+}
