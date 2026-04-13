@@ -8,7 +8,7 @@ from . import AquariaTestBase
 from ..Locations import AquariaLocationNames
 
 
-class ProgressionHardHiddenTest(AquariaTestBase):
+class UNoProgressionHardHiddenTest(AquariaTestBase):
     """Unit test used to test that no progression items can be put in hard or hidden locations when option disabled"""
     options = {
         "no_progression_hard_or_hidden_locations": False
@@ -42,11 +42,11 @@ class ProgressionHardHiddenTest(AquariaTestBase):
         AquariaLocationNames.ARNASSI_RUINS_ARNASSI_ARMOR,
     ]
 
-    def test_progression_hard_or_hidden(self) -> None:
+    def test_unconfine_home_water_both_location_fillable(self) -> None:
         """Unit test used to test that progression items can be put in hard or hidden locations when option disabled"""
         for location in self.unfillable_locations:
             for item_name in self.world.item_names:
-                item = self.world.create_item(item_name)
+                item = self.get_item_by_name(item_name)
                 self.assertTrue(
                     self.world.get_location(location).can_fill(self.multiworld.state, item, False),
                     "The location \"" + location + "\" cannot be filled with \"" + item_name + "\"")
